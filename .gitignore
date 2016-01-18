@@ -20,3 +20,8 @@ buildNumber.properties
 
 test-output/
 *.properties
+
+.settings/
+.DS_Store
+.project
+.classpath
