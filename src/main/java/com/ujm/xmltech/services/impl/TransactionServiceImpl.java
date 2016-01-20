@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.ujm.xmltech.dao.TransactionDao;
 import com.ujm.xmltech.entity.IntegrationFiles;
+import com.ujm.xmltech.entity.OperationReport;
 import com.ujm.xmltech.entity.Transaction;
 import com.ujm.xmltech.services.TransactionService;
 
@@ -23,5 +24,9 @@ public class TransactionServiceImpl implements TransactionService {
   
   public IntegrationFiles findIntegrationFileByMsgId(String msgId, String nomCrea){
 	  return dao.findIntegrationFileByMsgId(msgId, nomCrea);
+  }
+  
+  public void createOperationReport(OperationReport op){
+	  dao.createOperationReport(op);
   }
 }

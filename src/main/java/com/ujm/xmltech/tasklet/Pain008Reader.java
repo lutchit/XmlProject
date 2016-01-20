@@ -92,6 +92,9 @@ public class Pain008Reader implements Tasklet {
 	        	newTransaction.setCurrency(infoTransaction.getInstdAmt().getCcy());
 	        	newTransaction.setDate(infoTransaction.getDrctDbtTx().getMndtRltdInf().getDtOfSgntr().toGregorianCalendar().getTime());
 	        	newTransaction.setSequence(infoTransaction.getPmtTpInf().getSeqTp().value());
+	        	service.createTransaction(newTransaction);
+	        	
+	        	checkTransaction(newTransaction, file);
 	        }
 	      }
       }
@@ -106,11 +109,35 @@ public class Pain008Reader implements Tasklet {
   
   private boolean checkIntegrationFile(GroupHeader39 header){
 	  
-	  IntegrationFiles existFile = service.findIntegrationFileByMsgId(header.getMsgId().toString(), header.getInitgPty().getNm());
+	  //IntegrationFiles existFile = service.findIntegrationFileByMsgId(header.getMsgId().toString(), header.getInitgPty().getNm());
+	  String existFile = null;
 	  if (existFile == null)
 		  return true;
 	  System.out.println("The files already exist, Abord Mission");
 	  return false;
+  }
+  
+  private boolean checkSum(GroupHeader39 header, Iterator<PaymentInstructionInformation4> iterator){
+	  int nb_trans = Integer.valueOf(header.getNbOfTxs());
+	  int amount = header.getCtrlSum().intValue();
+	  
+	  int nb_trans_eff = 0;
+	  int amount_eff = 0;
+	  
+	  while(iterator.hasNext()){
+		  PaymentInstructionInformation4 transaction = iterator.next();
+		  for (DirectDebitTransactionInformation9 t : transaction.getDrctDbtTxInf()){
+			  nb_trans_eff ++;
+			  amount_eff += t.getInstdAmt().getValue().intValue();
+		  }
+	  }
+	  
+	  if (nb_trans != nb_trans_eff || amount != amount_eff){
+		  System.out.println("Bad Checksum");
+		  return false;
+	  }
+	  
+	  return true;
   }
   
   private void checkTransaction(Transaction t, IntegrationFiles file){
@@ -151,7 +178,7 @@ public class Pain008Reader implements Tasklet {
 	  }
 	  
 	  // Currency != E
-	  if (t.getCurrency() != "EUR"){
+	  if (!t.getCurrency().equals("EUR")){
 		  System.out.println("Currency != E");
 		  op.setCodeErreur(CodeErreurEnum.RJC003);
 	  }
@@ -182,6 +209,10 @@ public class Pain008Reader implements Tasklet {
 		  op.setCodeErreur(CodeErreurEnum.RJC007);
 	  }
 	  
+	  if (op.getCodeErreur() == null)
+		  op.setCodeErreur(CodeErreurEnum.CORRECT);
+	  
+	  service.createOperationReport(op);
   }
 
 }
