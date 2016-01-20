@@ -9,15 +9,15 @@ public class BankSimulationConstants {
   /**
    * Directory where are reports
    */
-  public final static String OUT_DIRECTORY = "out/";
+  public final static String OUT_DIRECTORY = "/home/zooff/M1/XML/Projets/out/";
   /**
    * Directory where are files under process
    */
-  public final static String WORK_DIRECTORY = "work/";
+  public final static String WORK_DIRECTORY = "/home/zooff/M1/XML/Projets/work/";
   /**
    * Directory where are files already processed
    */
-  public final static String ARCHIVE_DIRECTORY = "archive/";
+  public final static String ARCHIVE_DIRECTORY = "/home/zooff/M1/XML/Projets/archive/";
 
   /**
    * must contain only 4 upper case letters. Real example : BNPP

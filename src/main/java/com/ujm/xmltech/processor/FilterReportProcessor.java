@@ -31,7 +31,7 @@ public class FilterReportProcessor implements ItemProcessor<Report, Report> {
       item.setName(item.getName().toUpperCase());
     }
     //For the project
-    service.createTransaction();
+    //service.createTransaction();
 
     return item;
   }

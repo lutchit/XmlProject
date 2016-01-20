@@ -13,7 +13,7 @@ public class OperationReport {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	private long codeErreur;
+	private CodeErreurEnum codeErreur;
 	
 	@OneToOne
 	private Transaction transactionId;
@@ -29,11 +29,12 @@ public class OperationReport {
 		this.id = id;
 	}
 
-	public long getCodeErreur() {
+
+	public CodeErreurEnum getCodeErreur() {
 		return codeErreur;
 	}
 
-	public void setCodeErreur(long codeErreur) {
+	public void setCodeErreur(CodeErreurEnum codeErreur) {
 		this.codeErreur = codeErreur;
 	}
 

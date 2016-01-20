@@ -1,12 +1,15 @@
 package com.ujm.xmltech.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Transaction implements Serializable {
@@ -25,6 +28,13 @@ public class Transaction implements Serializable {
   private long amount;
 
   private String endToEndId;
+  
+  private String currency;
+  
+  @Temporal(TemporalType.DATE)
+  private Date date;
+  
+  private String sequence;
 
   @OneToOne
   private IntegrationFiles fileId;
@@ -71,6 +81,32 @@ public void setFileId(IntegrationFiles fileId) {
 
 public static long getSerialversionuid() {
 	return serialVersionUID;
+}
+
+
+
+public String getCurrency() {
+	return currency;
+}
+
+public void setCurrency(String currency) {
+	this.currency = currency;
+}
+
+public Date getDate() {
+	return date;
+}
+
+public void setDate(Date date) {
+	this.date = date;
+}
+
+public String getSequence() {
+	return sequence;
+}
+
+public void setSequence(String sequence) {
+	this.sequence = sequence;
 }
   
   
