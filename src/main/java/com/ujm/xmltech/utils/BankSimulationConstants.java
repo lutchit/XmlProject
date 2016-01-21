@@ -5,19 +5,19 @@ public class BankSimulationConstants {
   /**
    * Directory where are files to process
    */
-  public final static String IN_DIRECTORY = "/Users/ludovictichit/Documents/Master/XML/Projet/IN/";
+  public final static String IN_DIRECTORY = "/home/zooff/M1/XML/Projets/in/";
   /**
    * Directory where are reports
    */
-  public final static String OUT_DIRECTORY = "/Users/ludovictichit/Documents/Master/XML/Projet/OUT/";
+  public final static String OUT_DIRECTORY = "out/";
   /**
    * Directory where are files under process
    */
-  public final static String WORK_DIRECTORY = "/Users/ludovictichit/Documents/Master/XML/Projet/WORK/";
+  public final static String WORK_DIRECTORY = "work/";
   /**
    * Directory where are files already processed
    */
-  public final static String ARCHIVE_DIRECTORY = "/Users/ludovictichit/Documents/Master/XML/Projet/ARCHIVE/";
+  public final static String ARCHIVE_DIRECTORY = "archive/";
 
   /**
    * must contain only 4 upper case letters. Real example : BNPP

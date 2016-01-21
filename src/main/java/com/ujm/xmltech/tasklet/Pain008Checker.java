@@ -22,7 +22,7 @@ public class Pain008Checker implements Tasklet {
     public boolean checkFile(String fileName) {
         try {
             File fileToValidate = new File(BankSimulationConstants.WORK_DIRECTORY + fileName);
-            File xsdFile = new File("/Users/ludovictichit/Documents/Master/XML/InitialisationProjetAvance/src/main/resources/xsd/pain.008.001.02.xsd");
+            File xsdFile = new File("/home/zooff/Desktop/InitialisationProjetAvance/src/main/resources/xsd/pain.008.001.02.xsd");
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = factory.newSchema(new StreamSource(xsdFile));
             Validator validator = schema.newValidator();

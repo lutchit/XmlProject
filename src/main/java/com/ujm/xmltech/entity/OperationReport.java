@@ -1,33 +1,25 @@
 package com.ujm.xmltech.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
-public class OperationReport implements Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7671208136606716712L;
+public class OperationReport {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@OneToOne
-	private Transaction transaction;
+	private long codeErreur;
 	
 	@OneToOne
-	private File file;
+	private Transaction transactionId;
 	
-	private String error;
+	@OneToOne
+	private IntegrationFiles fileId;
 
 	public long getId() {
 		return id;
@@ -37,28 +29,31 @@ public class OperationReport implements Serializable{
 		this.id = id;
 	}
 
-	public Transaction getTransaction() {
-		return transaction;
+	public long getCodeErreur() {
+		return codeErreur;
 	}
 
-	public void setTransaction(Transaction transaction) {
-		this.transaction = transaction;
+	public void setCodeErreur(long codeErreur) {
+		this.codeErreur = codeErreur;
 	}
 
-	public File getFile() {
-		return file;
+	public Transaction getTransactionId() {
+		return transactionId;
 	}
 
-	public void setFile(File file) {
-		this.file = file;
+	public void setTransactionId(Transaction transactionId) {
+		this.transactionId = transactionId;
 	}
 
-	public String getError() {
-		return error;
+	public IntegrationFiles getFileId() {
+		return fileId;
 	}
 
-	public void setError(String error) {
-		this.error = error;
+	public void setFileId(IntegrationFiles fileId) {
+		this.fileId = fileId;
 	}
 
+	
+	
+	
 }

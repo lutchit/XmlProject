@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Transaction implements Serializable {
@@ -19,20 +20,15 @@ public class Transaction implements Serializable {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
 
+  private String BIC;
+  
   private long amount;
 
   private String endToEndId;
+
+  @OneToOne
+  private IntegrationFiles fileId;
   
-  private String bic;
-
-  public String getBic() {
-	return bic;
-  }
-
-  public void setBic(String bic) {
-	this.bic = bic;
-  }
-
   public long getId() {
     return id;
   }
@@ -56,5 +52,27 @@ public class Transaction implements Serializable {
   public void setEndToEndId(String endToEndId) {
     this.endToEndId = endToEndId;
   }
+
+public String getBIC() {
+	return BIC;
+}
+
+public void setBIC(String bIC) {
+	BIC = bIC;
+}
+
+public IntegrationFiles getFileId() {
+	return fileId;
+}
+
+public void setFileId(IntegrationFiles fileId) {
+	this.fileId = fileId;
+}
+
+public static long getSerialversionuid() {
+	return serialVersionUID;
+}
+  
+  
 
 }

@@ -15,6 +15,11 @@ public class MoveToWork implements Tasklet {
   public RepeatStatus execute(StepContribution arg0, ChunkContext arg1) throws Exception {
     System.out.println("move to work");
     String input = (String) arg1.getStepContext().getJobParameters().get("inputFile");
+    if(input == ".DS_Store") {
+    	File file = new File(BankSimulationConstants.IN_DIRECTORY + input);
+    	file.delete();
+    	return RepeatStatus.FINISHED;
+    }
     System.out.println("file to move " + input);
     File file = new File(BankSimulationConstants.IN_DIRECTORY + input);
     boolean moved = file.renameTo(new File(BankSimulationConstants.WORK_DIRECTORY + input));

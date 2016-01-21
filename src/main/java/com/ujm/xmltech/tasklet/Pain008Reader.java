@@ -43,15 +43,25 @@ public class Pain008Reader implements Tasklet {
       JAXBElement element = (JAXBElement) u.unmarshal(fileReader);
       Document document = (Document) element.getValue();
       GroupHeader39 header = document.getCstmrDrctDbtInitn().getGrpHdr();
-      System.out.println(header.getMsgId()); // test si msgId et idCreancier = une ligne dans la table identifiant
-      Iterator<PaymentInstructionInformation4> it = document.getCstmrDrctDbtInitn().getPmtInf().iterator();
-      while (it.hasNext()) {
+      //System.out.println(header.getMsgId()); // test si msgId et idCreancier = une ligne dans la table identifiant
+      //Iterator<PaymentInstructionInformation4> it = document.getCstmrDrctDbtInitn().getPmtInf().iterator();
+      //while (it.hasNext()) {
     	// vérifier banque destination
-        PaymentInstructionInformation4 collecTransaction = it.next();
+        //PaymentInstructionInformation4 collecTransaction = it.next();
         // boucler sur toutes les transactions (DrctDbtTxInf)
         // vérifier chaque transaction 
         // service.createTransaction();
-        System.out.println(collecTransaction.getPmtInfId());
+        //System.out.println(collecTransaction.getPmtInfId());
+
+      System.out.println(header.getMsgId());
+      
+      String msgId = header.getMsgId();
+      String nomCrea = header.getInitgPty().getNm();
+      
+      Iterator<PaymentInstructionInformation4> it = document.getCstmrDrctDbtInitn().getPmtInf().iterator();
+      
+      while (it.hasNext()) {
+    	  PaymentInstructionInformation4 transaction = it.next();
       }
       return document.getCstmrDrctDbtInitn();
     } catch (JAXBException e) {

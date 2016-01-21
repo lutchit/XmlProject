@@ -23,4 +23,5 @@ test-output/
 
 .settings/
 .DS_Store
+*.DS_Store
 .project
