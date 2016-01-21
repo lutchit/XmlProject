@@ -19,13 +19,14 @@
 	<context:component-scan base-package="com.ujm.xmltech.services" />
 	<context:component-scan base-package="com.ujm.xmltech.dao" />
 
-	<!-- <bean id="TransactionService" class="com.ujm.xmltech.services.impl.TransactionServiceImpl" 
-		/> <bean id="TransactionDao" class="com.ujm.xmltech.dao.impl.TransactionDaoImpl" 
-		/> -->
+	<bean id="TransactionService" class="com.ujm.xmltech.services.impl.TransactionServiceImpl" />
+	<bean id="TransactionDao" class="com.ujm.xmltech.dao.impl.TransactionDaoImpl" />
+	
 	<task:scheduler id="myScheduler" pool-size="10" />
 
 	<task:scheduled-tasks scheduler="myScheduler">
 		<task:scheduled ref="main" method="launch" cron="*/10 * * * * *" />
+		<task:scheduled ref="main" method="launchPain008Generation" cron="*/10 * * * * *"/>
 	</task:scheduled-tasks>
 
 	<bean id="main" class="com.ujm.xmltech.App" />
@@ -46,21 +47,28 @@
 		<bat:step id="writeReport" next="moveToArchive">
 			<bat:tasklet ref="xmlFileItemWriter" />
 		</bat:step>
-		<bat:step id="moveToArchive">
+		<bat:step id="moveToArchive" next="writeCreditorPain008">
 			<bat:tasklet ref="moveToArchiveTasklet" />
 		</bat:step>
 	</bat:job>
 	
-	<bat:job id="generatePain008FileToOtherCreditor">
-		<bat:step id="test">
-		</bat:step>
-	</bat:job>
-
 	<bean id="moveToWorkTasklet" class="com.ujm.xmltech.tasklet.MoveToWork" />
 	<bean id="validateFileTasklet" class="com.ujm.xmltech.tasklet.Pain008Checker" />
 	<bean id="xmlItemReader" class="com.ujm.xmltech.tasklet.Pain008Reader" scope="step" />
 	<bean id="itemProcessor" class="com.ujm.xmltech.tasklet.Pain008Processor" scope="step" />
 	<bean id="xmlFileItemWriter" class="com.ujm.xmltech.tasklet.Pain008Writer" scope="step" />
 	<bean id="moveToArchiveTasklet" class="com.ujm.xmltech.tasklet.MoveToArchive" />
+	
+	<bat:job id="generatePain008FileToOtherCreditor">
+		<bat:step id="readFileTable" next="writePain008">
+			<bat:tasklet ref="readFileTableTasklet"/>
+		</bat:step>
+		<bat:step id="writePain008">
+			<bat:tasklet ref="writePain008Tasklet" />
+		</bat:step>
+	</bat:job>
+	
+	<bean id="readFileTableTasklet" class="com.ujm.xmltech.tasklet.ReadFileTable" />
+	<bean id="writePain008Tasklet" class="com.ujm.xmltech.tasklet.WritePain008" />
 
 </beans>
